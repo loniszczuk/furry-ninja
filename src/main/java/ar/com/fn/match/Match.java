@@ -1,6 +1,5 @@
 package ar.com.fn.match;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
