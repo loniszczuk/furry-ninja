@@ -8,3 +8,5 @@ logs
 .classpath
 .project
 .DS_Store
+.idea
+*.iml
