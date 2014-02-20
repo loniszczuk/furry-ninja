@@ -1,6 +1,10 @@
-*.class
-
-# Package Files #
-*.jar
-*.war
-*.ear
+**/.settings
+**/.classpath
+**/.project
+**/target
+target
+logs
+.settings
+.classpath
+.project
+.DS_Store
