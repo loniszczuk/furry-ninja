@@ -2,7 +2,8 @@ package ar.com.fn;
 
 import static spark.Spark.*;
 import ar.com.fn.ai.Bot;
-import ar.com.fn.service.PlayService;
+import ar.com.fn.match.Match;
+import ar.com.fn.match.State;
 import spark.*;
 
 /**
@@ -13,11 +14,15 @@ public class Main {
 		get(new Route("/play") {
 			@Override
 			public Object handle(Request request, Response response) {
-				Bot b = new Bot();
-				String result = PlayService.resolveMatch(request.queryParams("name"), Utils.getIntArray(request.queryParams("moves")), b.getName(),
-						b.getMoves());
+				Match m = new Match();
 
-				return "and the winner is: " + result;
+				Bot b = new Bot();
+		        m.addMovements(request.queryParams("name"), Utils.getIntArray(request.queryParams("moves")));
+		        m.addMovements(b.getName(), b.getMoves());
+
+		        State s = m.getCurrentState();
+
+				return "and the winner is: " + s.getWinner();
 			}
 		});
 	}
