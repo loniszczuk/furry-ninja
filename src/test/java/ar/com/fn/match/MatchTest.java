@@ -83,4 +83,43 @@ public class MatchTest {
         assert s.getWinner() == player2;
     }
 
+    @Test
+    public void test4() {
+        String player1 = "roberto";
+        String player2 = "alfredo";
+
+        int[] moves1 = new int[]{1,1,0,0,0};
+        int[] moves2 = new int[]{1,1,1,1,1};
+
+        Match m = new Match();
+
+        m.addMovements(player1, moves1);
+        m.addMovements(player2, moves2);
+
+        State s = m.getCurrentState();
+
+        assert s.isFinished();
+        assert s.getWinner() == player1;
+    }
+
+    @Test
+    public void test5() {
+        String player1 = "roberto";
+        String player2 = "alfredo";
+
+        int[] moves1 = new int[]{1,1,1,0,0};
+        int[] moves2 = new int[]{1,1,1,1,1};
+
+        Match m = new Match();
+
+        m.addMovements(player1, moves1);
+        m.addMovements(player2, moves2);
+
+        State s = m.getCurrentState();
+
+        assert s.isFinished();
+        assert s.getWinner() == player2;
+    }
+
+
 }

@@ -1,6 +1,5 @@
 package ar.com.fn.match;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -10,7 +9,6 @@ public class Match {
     private State state = new State();
 
     private Map<String, int[]> movesByPlayer = new LinkedHashMap<String, int[]>();
-
 
     public void addMovements(String player, int[] movements) {
         this.movesByPlayer.put(player, movements);
