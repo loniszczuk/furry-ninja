@@ -37,7 +37,7 @@ public class Main {
 				// The ftl files need to be located in the directory:
 				// {resources-dir}/spark/template/freemarker
 				// hence in maven: src/main/resources/spark/template/freemarker
-				return modelAndView(attributes, "result.html");
+				return modelAndView(attributes, "result.ftl");
 			}
 		});
 	}
