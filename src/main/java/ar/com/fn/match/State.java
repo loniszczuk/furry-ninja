@@ -4,6 +4,7 @@ public class State {
 
     private boolean finished = false;
     private String winner;
+    private MatchLog matchLog = new MatchLog();
 
     public boolean isFinished() {
         return finished;
@@ -26,4 +27,12 @@ public class State {
         }
         this.winner = winner;
     }
+
+	public MatchLog getMatchLog() {
+		return matchLog;
+	}
+
+	public void setMatchLog(MatchLog matchLog) {
+		this.matchLog = matchLog;
+	}
 }
