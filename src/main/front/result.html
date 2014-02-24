@@ -8,7 +8,7 @@
 	<script>
 		window.addEventListener("load", function() {
 
-			var Q = window.Q = Quintus().include("Sprites, 2D, Scenes").setup({
+			var Q = window.Q = Quintus().include("Sprites, Scenes").setup({
 				maximize : true
 			});
 
@@ -24,8 +24,7 @@
 
 			Q.MovingSprite.extend("AbstractBall", {
 				stop : function() {
-					this.p.vx = 0,
-					this.p.vy = 0
+					this.p.vx = 0, this.p.vy = 0
 				},
 				draw : function(ctx) {
 					ctx.fillStyle = this.p.color;
@@ -46,7 +45,7 @@
 						y : 300
 					});
 				},
-				moveToTarget: function() {
+				moveToTarget : function() {
 					this.p.vy = -60;
 					this.p.vx = 25 * this.p.target;
 				}
@@ -54,6 +53,7 @@
 
 			Q.AbstractBall.extend("Player1", {
 				init : function(p) {
+					this.on("hit", this, "collision");
 					this._super(p, {
 						color : "red",
 						w : 50,
@@ -61,6 +61,26 @@
 						x : 300,
 						y : 380
 					});
+				},
+				collision : function(col) {
+					alert("hola");
+				},
+				step : function(dt) {
+					var collided = false;
+					var p = this.p;
+
+					p.x += p.dx *  * dt;
+					p.y += p.dy * -40 * dt;
+
+					p.hit = false;
+					while ((collided = this.stage.search(this))) {
+						if (collided) {
+							p.hit = true;
+						}
+					}
+					console.log(p.hit);
+
+					this._super(dt);
 				}
 			});
 
@@ -80,19 +100,35 @@
 			var ball;
 			var player1;
 			var player2;
-			
+
 			Q.scene("move1", function(stage) {
-				ball = stage.insert(new Q.Ball({target:-1}));
-				player1 = stage.insert(new Q.Player1({vy:-40}));
+				ball = stage.insert(new Q.Ball({
+					target : -1
+				}));
+				player1 = stage.insert(new Q.Player1({
+					vy : -40
+				}));
 				player2 = stage.insert(new Q.Player2());
 			});
-			
+
 			Q.scene("move2", function(stage) {
-				ball = stage.insert(new Q.Ball({target:1}));
-				player1 = stage.insert(new Q.Player1({vy:-40}));
+				ball = stage.insert(new Q.Ball({
+					target : 1
+				}));
+				player1 = stage.insert(new Q.Player1({
+					vy : -40
+				}));
 				player2 = stage.insert(new Q.Player2());
 			});
-			
+
+			/* Q.scene("endGame", function(stage) {
+				var label = stage.insert(new Q.UI.Text({
+					x : Q.width / 2,
+					y : Q.height / 2,
+					label : stage.options.label
+				}));
+			}); */
+
 			Q.gameLoop(function(dt) {
 				Q.clear();
 
@@ -101,14 +137,14 @@
 				player2.update(dt);
 
 				if (player1.p.y <= ball.p.y + player1.p.h) {
-					player1.p.vy = 0;
-					ball.moveToTarget();
+					//player1.p.vy = 0;
+					//ball.moveToTarget();
 				}
-				
+
 				if (ball.p.y <= 100) {
 					ball.stop();
 					Q.clearStages();
-				    Q.stageScene('endGame');
+					Q.stageScene('endGame', 'test test');
 				}
 
 				ball.render(Q.ctx);
@@ -118,6 +154,8 @@
 			});
 
 			Q.stageScene("move1");
+			Q.debug = true;
+			Q.debugFill = true;
 		});
 	</script>
 </body>
