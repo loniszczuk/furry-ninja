@@ -7,6 +7,7 @@ import java.util.Map;
 
 import ar.com.fn.ai.Bot;
 import ar.com.fn.match.Match;
+import ar.com.fn.match.State;
 import spark.*;
 import spark.template.freemarker.FreeMarkerRoute;
 
@@ -14,6 +15,9 @@ import spark.template.freemarker.FreeMarkerRoute;
  * @author jformoso
  */
 public class Main {
+	
+	private static Map<Integer, State> results = new HashMap<Integer, State>();
+	private static Integer currentId = 1;
 	public static void main(String[] args) {
 		get(new JsonRoute("/play") {
 			@Override
@@ -24,20 +28,23 @@ public class Main {
 				m.addMovements(request.queryParams("name"), Utils.getIntArray(request.queryParams("moves")));
 				m.addMovements(b.getName(), b.getMoves());
 
-				return m.getCurrentState();
+				State state = m.getCurrentState();
+				state.setId(currentId);
+				results.put(currentId, state);
+				++currentId;
+				return state;
 			}
 		});
 
-		get(new FreeMarkerRoute("/result") {
+		get(new FreeMarkerRoute("/result/:id") {
 			@Override
 			public ModelAndView handle(Request request, Response response) {
-				Map<String, Object> attributes = new HashMap<>();
-//				attributes.put("message", "Hello FreeMarker");
-
 				// The ftl files need to be located in the directory:
 				// {resources-dir}/spark/template/freemarker
 				// hence in maven: src/main/resources/spark/template/freemarker
-				return modelAndView(attributes, "result.ftl");
+				State state = results.get(Integer.parseInt(request.params(":id")));
+				if (state == null) halt(404, "Not found!");
+				return modelAndView(state, "result.ftl");
 			}
 		});
 	}

@@ -69,11 +69,10 @@
 					this.on("hit", this, "collision");
 				},
 				
-				moveToTarget : function() {
+				moveToGoal : function() {
 					this.p.vy = -60;
-					this.p.vx = -25 * this.p.target;
+					this.p.vx = -25 * this.p.direction;
 				},
-
 				collision: function(col) {
 				  console.log("Ball collision!")
 				  if(this.p.vx != 0 || this.p.vy != 0) {
@@ -81,12 +80,10 @@
 					this.stop();
 				  }else {
 				  	console.log("moving ball!");
-					this.moveToTarget();
+					this.moveToGoal();
 				  }
 				},
-				
 				step: function(dt) {
-				  // Tell the stage to run collisions on this sprite
 				  this.stage.collide(this);
 				}
 			});
@@ -103,7 +100,6 @@
 					this.add("2d")
 					this.on("hit", this, "collision");
 				},
-				
 				collision: function(col) {
 					console.log("Player 1 collision!");
 					this.stop();
@@ -130,7 +126,7 @@
 			
 			Q.scene("move1", function(stage) {
 				goal = stage.insert(new Q.Goal());
-				ball = stage.insert(new Q.Ball({target:-1}));
+				ball = stage.insert(new Q.Ball({direction:-1}));
 				player1 = stage.insert(new Q.Player1({vy:-40}));
 				player2 = stage.insert(new Q.Player2());
 			});

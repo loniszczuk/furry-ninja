@@ -8,17 +8,18 @@
 	<script>
 		window.addEventListener("load", function() {
 
-			var Q = window.Q = Quintus().include("Sprites, 2D, Scenes").setup({
-				maximize : true
-			});
-			
+			var Q = window.Q = Quintus().include("Sprites, 2D, Scenes, Input, UI")
+					.setup({
+						maximize : true
+					});
+
 			Q.gravityX = 0;
 			Q.gravityY = 0;
-//			Q.debug = true;
-//			Q.debugFill = true;
+			 Q.debug = true;
+			Q.debugFill = true;
 
 			Q.Sprite.extend("Goal", {
-				init : function (p) {
+				init : function(p) {
 					this._super(p, {
 						color : "black",
 						w : 300,
@@ -37,11 +38,16 @@
 					ctx.fillRect(-this.p.cx, -this.p.cy, this.p.w, this.p.h);
 				},
 				collision : function() {
-					console.log("Goal!!")					
-				} 
+					console.log("Goal!!")
+				}
 			});
 
 			Q.MovingSprite.extend("AbstractBall", {
+				init : function(p) {
+					this._super(p);
+					this.add("2d");
+					this.on("hit", this, "collision");
+				},
 				stop : function() {
 					this.p.vy = 0;
 					this.p.vx = 0;
@@ -52,90 +58,118 @@
 					ctx.arc(-this.p.cx, -this.p.cy, this.p.w / 2, 0,
 							Math.PI * 2);
 					ctx.fill();
+				},
+				step : function(dt) {
+					this.stage.collide(this);
+				},
+				collision : function(col) {
+					;
 				}
 			});
 
 			Q.AbstractBall.extend("Ball", {
 				init : function(p) {
-					this._super(p, {
-						color : "black",
-						w : 20,
-						h : 20,
-						x : 285,
-						y : 300
-					});
-					this.add("2d");
+					p.color = "black";
+					p.w = 20;
+					p.h = 20;
+					p.x = 285;
+					p.y = 300;
+					this._super(p);
 					console.log("Ball created");
-					this.on("hit", this, "collision");
 				},
-				
-				moveToTarget : function() {
+				moveToGoal : function() {
 					this.p.vy = -60;
-					this.p.vx = -25 * this.p.target;
+					this.p.vx = -25 * this.p.direction;
 				},
-
-				collision: function(col) {
-				  console.log("Ball collision!")
-				  if(this.p.vx != 0 || this.p.vy != 0) {
-				  	console.log("Ball moving, then stop")
-					this.stop();
-				  }else {
-				  	console.log("moving ball!");
-					this.moveToTarget();
-				  }
-				},
-				
-				step: function(dt) {
-				  // Tell the stage to run collisions on this sprite
-				  this.stage.collide(this);
+				collision : function(col) {
+					console.log("Ball collision!")
+					if (this.p.vx != 0 || this.p.vy != 0) {
+						console.log("Ball moving, then stop")
+						this.stop();
+						player2.stop();
+						Q.stageScene("next", 1, {
+							label : "You Won!"
+						});
+					} else {
+						console.log("moving ball!");
+						this.moveToGoal();
+					}
 				}
 			});
 
 			Q.AbstractBall.extend("Player1", {
 				init : function(p) {
-					this._super(p, {
-						color : "red",
-						w : 50,
-						h : 50,
-						x : 300,
-						y : 380
-					});
-					this.add("2d")
-					this.on("hit", this, "collision");
+					p.color = "red";
+					p.w = 50;
+					p.h = 50;
+					p.x = 300;
+					p.y = 380;
+					this._super(p);
 				},
-				
-				collision: function(col) {
+				collision : function(col) {
 					console.log("Player 1 collision!");
 					this.stop();
+					player2.moveToCatch();
 				}
 			});
 
 			Q.AbstractBall.extend("Player2", {
 				init : function(p) {
-					this._super(p, {
-						color : "green",
-						w : 50,
-						h : 50,
-						x : 300,
-						y : 100
-					});
-					this.add("2d");
-				}
+					p.color = "green";
+					p.w = 50;
+					p.h = 50;
+					p.x = 300;
+					p.y = 100;
+					this._super(p);
+				},
+				moveToCatch : function() {
+					this.p.vx = -25 * this.p.direction;
+				},
 			});
 
 			var goal;
 			var ball;
 			var player1;
 			var player2;
-			
+
 			Q.scene("move1", function(stage) {
 				goal = stage.insert(new Q.Goal());
-				ball = stage.insert(new Q.Ball({target:-1}));
-				player1 = stage.insert(new Q.Player1({vy:-40}));
-				player2 = stage.insert(new Q.Player2());
+				ball = stage.insert(new Q.Ball({
+					direction : -1
+				}));
+				player1 = stage.insert(new Q.Player1({
+					vy : -40
+				}));
+				player2 = stage.insert(new Q.Player2({
+					direction : -1
+				}));
 			});
-		
-			
+
+			Q.scene("next", function(stage) {
+				console.log(stage.options.label);
+				var box = stage.insert(new Q.UI.Container({
+					x : Q.width / 2,
+					y : Q.height / 2,
+					fill : "rgba(0,0,0,0.5)"
+				}));
+				var button = box.insert(new Q.UI.Button({
+					x : 0,
+					y : 0,
+					fill : "#CCCCCC",
+					label : "Play Again"
+				}))
+				var label = box.insert(new Q.UI.Text({
+					x : 10,
+					y : -10 - button.p.h,
+					label : stage.options.label
+				}));
+				button.on("click", function() {
+					Q.clearStages();
+					Q.stageScene('level1');
+				});
+				box.fit(20);
+			});
+
 			Q.gameLoop(function(dt) {
 				Q.clear();
 
@@ -144,10 +178,10 @@
 				player1.update(dt);
 				player2.update(dt);
 
+				goal.render(Q.ctx);
 				ball.render(Q.ctx);
 				player1.render(Q.ctx);
 				player2.render(Q.ctx);
-				goal.render(Q.ctx);
 			});
 
 			Q.stageScene("move1");

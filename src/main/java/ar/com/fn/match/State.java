@@ -2,6 +2,7 @@ package ar.com.fn.match;
 
 public class State {
 
+	private Integer id;
     private boolean finished = false;
     private String winner;
     private MatchLog matchLog = new MatchLog();
@@ -34,5 +35,13 @@ public class State {
 
 	public void setMatchLog(MatchLog matchLog) {
 		this.matchLog = matchLog;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 }
