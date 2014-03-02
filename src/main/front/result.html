@@ -8,14 +8,14 @@
 	<script>
 		window.addEventListener("load", function() {
 
-			var Q = window.Q = Quintus().include("Sprites, 2D, Scenes, Input, UI")
+			var Q = window.Q = Quintus().include("Sprites, 2D, Scenes, Input, UI, Anim")
 					.setup({
 						maximize : true
 					});
 
 			Q.gravityX = 0;
 			Q.gravityY = 0;
-			 Q.debug = true;
+			Q.debug = true;
 			Q.debugFill = true;
 
 			Q.Sprite.extend("Goal", {
@@ -184,6 +184,15 @@
 				player2.render(Q.ctx);
 			});
 
+			Q.load("goalie.json, goalie.png", function() {
+			    Q.compileSheets("goalie.png","goalie.json");
+			    Q.animations("goalie", {
+			      jump_right: { frames: [3,4,5,6], rate: 1/10, flip: false},
+			      jump_left: { frames: [3,2,1,0], rate: 1/10, flip: false },
+			      stand: { frames:[3], rate: 1/10, flip: false },
+			    });
+			});
+			
 			Q.stageScene("move1");
 		});
 	</script>

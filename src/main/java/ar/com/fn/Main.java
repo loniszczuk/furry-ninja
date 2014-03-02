@@ -1,6 +1,7 @@
 package ar.com.fn;
 
-import static spark.Spark.*;
+import static spark.Spark.get;
+import static spark.Spark.staticFileLocation;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,6 +20,9 @@ public class Main {
 	private static Map<Integer, State> results = new HashMap<Integer, State>();
 	private static Integer currentId = 1;
 	public static void main(String[] args) {
+		
+		staticFileLocation("/public");
+		
 		get(new JsonRoute("/play") {
 			@Override
 			public Object handle(Request request, Response response) {
@@ -47,5 +51,6 @@ public class Main {
 				return modelAndView(state, "result.ftl");
 			}
 		});
+		
 	}
 }

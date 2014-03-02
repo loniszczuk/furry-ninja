@@ -8,14 +8,14 @@
 	<script>
 		window.addEventListener("load", function() {
 
-			var Q = window.Q = Quintus().include("Sprites, 2D, Scenes").setup({
+			var Q = window.Q = Quintus().include("Sprites, 2D, Scenes, Anim").setup({
 				maximize : true
 			});
 			
 			Q.gravityX = 0;
 			Q.gravityY = 0;
-//			Q.debug = true;
-//			Q.debugFill = true;
+			Q.debug = true;
+			Q.debugFill = true;
 
 			Q.Sprite.extend("Goal", {
 				init : function (p) {
@@ -70,8 +70,8 @@
 				},
 				
 				moveToGoal : function() {
-					this.p.vy = -60;
-					this.p.vx = -25 * this.p.direction;
+					this.p.vy = -90;
+					this.p.vx = -50 * this.p.direction;
 				},
 				collision: function(col) {
 				  console.log("Ball collision!")
@@ -83,9 +83,6 @@
 					this.moveToGoal();
 				  }
 				},
-				step: function(dt) {
-				  this.stage.collide(this);
-				}
 			});
 
 			Q.AbstractBall.extend("Player1", {
@@ -106,16 +103,55 @@
 				}
 			});
 
-			Q.AbstractBall.extend("Player2", {
+			Q.Sprite.extend("Goalie", {
 				init : function(p) {
 					this._super(p, {
-						color : "green",
-						w : 50,
-						h : 50,
-						x : 300,
-						y : 100
+						sheet: "goalie",
+						sprite: "goalie",
+						x : 280,
+						y : 100,
+						vy : 0,
+						w : 145,
+						h : 103,
+						jump : false,
+						scale : 1,
+						standingPoints: [[-30,-50],[30,-50],[30,50],[-30,50]],
+						jumpingPoints: [[-72,-25],[72,-25],[72,25],[-72,25]],
 					});
-					this.add("2d");
+					this.p.points = this.p.standingPoints;
+					this.add("2d, animation");
+					this.play("stand");
+					this.on("hit", this, "collision");
+				},
+					
+				step : function(dt) {
+				},
+
+				move : function() {
+					if (this.p.vx == 0 && !this.p.jump) {
+						this.p.jump = true;
+						this.p.points = this.p.jumpingPoints;
+						this.moveRight(this)
+					}
+				},
+				
+				moveRight : function(p) {
+					this.p.vx = 60;
+				    this.play("jump_right");
+				},
+
+				moveLeft : function(p) {
+					this.p.vx = -15;
+				    this.play("jump_left");
+				},				
+
+				stop : function() {
+					this.p.vx = 0;
+					this.p.vy = 0;
+				},
+				   
+   				collision: function(col) {
+					this.stop();
 				}
 			});
 
@@ -128,10 +164,11 @@
 				goal = stage.insert(new Q.Goal());
 				ball = stage.insert(new Q.Ball({direction:-1}));
 				player1 = stage.insert(new Q.Player1({vy:-40}));
-				player2 = stage.insert(new Q.Player2());
+				player2 = stage.insert(new Q.Goalie());
+				player2.move();
 			});
 		
-			
+
 			Q.gameLoop(function(dt) {
 				Q.clear();
 
@@ -139,11 +176,21 @@
 				ball.update(dt);
 				player1.update(dt);
 				player2.update(dt);
+	
 
 				ball.render(Q.ctx);
 				player1.render(Q.ctx);
 				player2.render(Q.ctx);
 				goal.render(Q.ctx);
+			});
+			
+			Q.load("goalie.json, goalie.png", function() {
+			    Q.compileSheets("goalie.png","goalie.json");
+			    Q.animations("goalie", {
+			      jump_right: { frames: [3,4,5,6], rate: 1/4, flip: false, loop: false},
+			      jump_left: { frames: [3,2,1,0], rate: 1/4, flip: false, loop: false },
+			      stand: { frames: [3], rate: 1/5, flip: false, loop: false },
+			    });
 			});
 
 			Q.stageScene("move1");
