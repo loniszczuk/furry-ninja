@@ -14,8 +14,8 @@
 			
 			Q.gravityX = 0;
 			Q.gravityY = 0;
-			Q.debug = true;
-			Q.debugFill = true;
+			//Q.debug = true;
+			//Q.debugFill = true;
 
 			Q.Sprite.extend("Goal", {
 				init : function (p) {
