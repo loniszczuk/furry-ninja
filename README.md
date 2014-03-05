@@ -1,4 +1,4 @@
 furry-ninja
 ===========
 
-Furry ninjas everywhere.
+Furry ninjas everywhere. Yeah!

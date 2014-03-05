@@ -1,0 +1,17 @@
+<configuration scan="true" scanPeriod="30 seconds">
+
+    <!-- MAIN LOG CONFIG -->
+
+    <root level="DEBUG">
+        <appender-ref ref="consoleAppender"/>
+    </root>
+
+    <!-- APPENDERS -->
+
+    <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>\(%X{hostName}\) %d %-4p [%X{uow}-%X{requestId}][%t] %c{4} : %m%n</Pattern>
+        </encoder>
+    </appender>
+
+</configuration>
