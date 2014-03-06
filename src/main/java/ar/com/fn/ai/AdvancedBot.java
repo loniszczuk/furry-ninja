@@ -8,15 +8,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-/**
- * @author jformoso
- */
-public class Bot extends Goalie {
+public class AdvancedBot extends Goalie {
 
     private Random rand = new Random();
 
-    public Bot() {
-        super("Noob Bot", 1.5f);
+    public AdvancedBot() {
+        super("Pro Bot", 2.f);
     }
 
     @Override
@@ -35,4 +32,5 @@ public class Bot extends Goalie {
 
         return new Dive(cov);
     }
+
 }

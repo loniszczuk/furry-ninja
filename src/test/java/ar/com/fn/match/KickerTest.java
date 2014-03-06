@@ -10,7 +10,7 @@ public class KickerTest {
 
     @Test
     public void test() {
-        Kicker k = new SimpleKicker(1, 1, LEFT, CENTER, RIGHT, CENTER, CENTER);
+        Kicker k = new SimpleKicker("jose", 1, LEFT, CENTER, RIGHT, CENTER, CENTER);
 
         Kick k1 = k.kick();
         Kick k2 = k.kick();
@@ -19,24 +19,19 @@ public class KickerTest {
         Kick k5 = k.kick();
 
 
-        assert k1.getPower() == 1;
-        assert k1.getPrecision() == 1.f;
+        assert k1.getGoalProbability() == 1.f;
         assert k1.getPosition() == LEFT;
 
-        assert k2.getPower() == 1;
-        assert k2.getPrecision() == 1.f;
+        assert k2.getGoalProbability() == 1.f;
         assert k2.getPosition() == CENTER;
 
-        assert k3.getPower() == 1;
-        assert k3.getPrecision() == 1.f;
+        assert k3.getGoalProbability() == 1.f;
         assert k3.getPosition() == RIGHT;
 
-        assert k4.getPower() == 1;
-        assert k4.getPrecision() == 1.f;
+        assert k4.getGoalProbability() == 1.f;
         assert k4.getPosition() == CENTER;
 
-        assert k5.getPower() == 1;
-        assert k5.getPrecision() == 1.f;
+        assert k5.getGoalProbability() == 1.f;
         assert k5.getPosition() == CENTER;
 
     }

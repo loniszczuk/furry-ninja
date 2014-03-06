@@ -36,7 +36,7 @@ public class Main {
                 Position[] p = new Position[5];
                 for(int i=0; i<5; ++i) {p[i] = Position.values()[moves[i]];}
 
-                t1.addKicker(new SimpleKicker(1, 1.f, p));
+                t1.addKicker(new SimpleKicker("Jose", 1.f, p));
 
                 Team t2 = new Team("bot");
                 Bot b = new Bot();

@@ -5,24 +5,18 @@ import ar.com.fn.match.Position;
 public class Kick {
 
     private Position position;
-    private int power;
-    private float precision;
+    private float goalProbability;
 
-    public Kick(Position position, int power, float precision) {
+    public Kick(Position position, float goalProbability) {
         this.position = position;
-        this.power = power;
-        this.precision = precision;
+        this.goalProbability = goalProbability;
     }
 
     public Position getPosition() {
         return position;
     }
 
-    public int getPower() {
-        return power;
-    }
-
-    public float getPrecision() {
-        return precision;
+    public float getGoalProbability() {
+        return goalProbability;
     }
 }

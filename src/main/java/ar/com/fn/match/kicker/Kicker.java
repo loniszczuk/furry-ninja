@@ -2,17 +2,17 @@ package ar.com.fn.match.kicker;
 
 public abstract class Kicker {
 
-    protected int power;
-    protected float precision;
+    private String name;
+    protected float probability;
 
-    public Kicker(int power, float precision) {
-        this.power = power;
-        this.precision = precision;
+    public Kicker(String name, float probability) {
+        this.name = name;
+        this.probability = probability;
     }
 
     public abstract Kick kick();
 
-    public String getName() {
-        return "Kicker 1";
+    public final String getName() {
+        return this.name;
     }
 }

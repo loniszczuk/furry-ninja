@@ -2,27 +2,39 @@ package ar.com.fn.match.goalie;
 
 import ar.com.fn.match.Position;
 
+import java.util.Map;
+
 public class Dive {
 
-    private Position position;
-    private int power;
-    private float precision;
+    private Map<Position, Float> coverage;
+    private Position dominantPosition;
 
-    public Dive(Position position, int power, float precision) {
-        this.position = position;
-        this.power = power;
-        this.precision = precision;
+    public Dive(Map<Position, Float> coverage) {
+        this.coverage = coverage;
+
+
+        Position c = Position.values()[0];
+        float prob = 0.f;
+
+        for (Position p : Position.values()) {
+            if (prob <= getBlockProbability(p)) {
+                c = p;
+                prob = getBlockProbability(p);
+            }
+        }
+        this.dominantPosition = c;
     }
 
-    public Position getPosition() {
-        return position;
+    public float getBlockProbability(Position p) {
+        if (coverage.containsKey(p)) {
+            return coverage.get(p).floatValue();
+        } else {
+            return 0.f;
+        }
+
     }
 
-    public int getPower() {
-        return power;
-    }
-
-    public float getPrecision() {
-        return precision;
+    public Position getDominantPosition() {
+        return dominantPosition;
     }
 }

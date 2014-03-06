@@ -3,17 +3,17 @@ package ar.com.fn.match.goalie;
 
 public abstract class Goalie {
 
-    protected int power;
-    protected float precision;
+    private String name;
+    protected float coverage;
 
-    public Goalie(int power, float precision) {
-        this.power = power;
-        this.precision = precision;
+    public Goalie(String name, float coverage) {
+        this.name = name;
+        this.coverage = coverage;
+    }
+
+    public final String getName() {
+        return this.name;
     }
 
     public abstract Dive dive();
-
-    public String getName() {
-        return "Goalie 1";
-    }
 }
