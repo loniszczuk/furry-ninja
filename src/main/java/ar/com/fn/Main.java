@@ -1,25 +1,30 @@
 package ar.com.fn;
 
+import static spark.Spark.get;
+import static spark.Spark.post;
+import static spark.Spark.staticFileLocation;
+
 import java.util.Map;
 
-import ar.com.fn.match.*;
+import spark.ModelAndView;
+import spark.Request;
+import spark.Response;
+import spark.Route;
+import spark.template.freemarker.FreeMarkerRoute;
+import ar.com.fn.match.Matches;
+import ar.com.fn.match.State;
 import ar.com.fn.matchmaking.User;
 import ar.com.fn.matchmaking.Users;
-import ar.com.fn.penalty.Position;
-import com.google.gson.Gson;
-import spark.*;
-import spark.template.freemarker.FreeMarkerRoute;
 
-import static spark.Spark.*;
+import com.google.gson.Gson;
 
 /**
  * @author jformoso
  */
+@SuppressWarnings("unchecked")
 public class Main {
 
-    private static final Position[] a = new Position[0];
     private static Gson gson = new Gson();
-
 
 	public static void main(String[] args) {
 		
@@ -27,11 +32,12 @@ public class Main {
 
         MatchesRoutes.registerRoutes();
         ChallengesRoutes.registerRoutes();
+        UsersRoutes.registerRoutes();
 
         // WEB METHODS (not used yet)
 
         post(new Route("/login") {
-            public Object handle(Request request, Response response) {
+			public Object handle(Request request, Response response) {
                 Map<Object, Object> body = gson.fromJson(request.body(), Map.class);
                 String username = (String) body.get("username");
                 User u = new User(username);

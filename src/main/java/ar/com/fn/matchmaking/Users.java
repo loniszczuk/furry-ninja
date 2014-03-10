@@ -1,8 +1,10 @@
 package ar.com.fn.matchmaking;
 
+import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+
+import ar.com.fn.storage.IdentificableHandler;
+import ar.com.fn.storage.MemoryHandler;
 
 public class Users {
 
@@ -12,10 +14,10 @@ public class Users {
         return instance;
     }
 
-    private Set<User> onlineUsers = new HashSet<>();
+    private IdentificableHandler<User> onlineUsers = new MemoryHandler<>();
 
-    public Set<User> getOnlineUsers() {
-        return Collections.unmodifiableSet(onlineUsers);
+    public Collection<User> getOnlineUsers() {
+        return Collections.unmodifiableCollection(onlineUsers.getAll());
     }
 
     public void setOnline(User u) {
@@ -23,7 +25,6 @@ public class Users {
     }
 
     public void setOffline(User u) {
-        this.onlineUsers.remove(u);
+        this.onlineUsers.remove(u.getId());
     }
-
 }

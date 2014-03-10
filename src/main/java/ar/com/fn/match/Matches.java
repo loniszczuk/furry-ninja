@@ -1,7 +1,7 @@
 package ar.com.fn.match;
 
-import java.util.HashMap;
-import java.util.Map;
+import ar.com.fn.storage.IdentificableHandler;
+import ar.com.fn.storage.MemoryHandler;
 
 public class Matches {
 
@@ -11,14 +11,13 @@ public class Matches {
         return instance;
     }
 
-
-    private Map<String, Match> matches = new HashMap<>();
+    private IdentificableHandler<Match> matches = new MemoryHandler<>();
 
     private Matches() {
     }
 
     public void registerMatch(Match match) {
-        this.matches.put(match.getId(), match);
+        this.matches.save(match);
     }
 
     public Match getMatch(String id) {

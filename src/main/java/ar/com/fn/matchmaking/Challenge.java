@@ -1,14 +1,13 @@
 package ar.com.fn.matchmaking;
 
 import ar.com.fn.match.Team;
-import ar.com.fn.utils.IdGenerator;
+import ar.com.fn.storage.Identificable;
 
-import java.util.UUID;
+public class Challenge extends Identificable {
 
-public class Challenge {
+	private static final long serialVersionUID = 6826954827548408759L;
 
-    private String id;
-    private long timestamp;
+	private long timestamp;
 
     private User challenger;
     private Team challengerTeam;
@@ -19,8 +18,6 @@ public class Challenge {
     private String matchId;
 
     public Challenge(User challenger, Team challengerTeam, User challenged) {
-
-        this.id = IdGenerator.generate();
         this.timestamp = System.currentTimeMillis();
         this.challenger = challenger;
         this.challengerTeam = challengerTeam;
@@ -29,10 +26,6 @@ public class Challenge {
 
     public boolean isReadyToMatch() {
         return this.challengerTeam != null && this.challengedTeam != null;
-    }
-
-    public String getId() {
-        return this.id;
     }
 
     public long getTimestamp() {

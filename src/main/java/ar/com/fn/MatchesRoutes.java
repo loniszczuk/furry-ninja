@@ -4,7 +4,6 @@ import ar.com.fn.ai.Bot;
 import ar.com.fn.kicker.SimpleKicker;
 import ar.com.fn.match.Matches;
 import ar.com.fn.match.SimpleMatch;
-import ar.com.fn.match.State;
 import ar.com.fn.match.Team;
 import ar.com.fn.penalty.Position;
 import ar.com.fn.requests.MatchRequest;
@@ -23,7 +22,6 @@ public class MatchesRoutes {
 
     public static void registerRoutes() {
         // API METHODS
-
         get(new JsonRoute("/matches/:id") {
             @Override
             public Object handle(Request request, Response response) {

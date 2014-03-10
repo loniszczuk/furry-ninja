@@ -9,7 +9,9 @@ import java.util.Iterator;
 
 public class ChallengeMatch extends Match {
 
-    private State state = new State(this.getId());
+	private static final long serialVersionUID = -7632615642884449005L;
+
+	private State state = new State(this.getId());
 
     private Team t1;
     private Team t2;
@@ -30,7 +32,7 @@ public class ChallengeMatch extends Match {
         Iterator<Kicker> kickers2 = t2.kickers().iterator();
         Iterator<Goalie> goalies2 = t2.goalies().iterator();
 
-        int goals = 0;
+//        int goals = 0;
         for (int i = 0; i < 5; ++i) {
             Penalty p = new Penalty(kickers1.next().kick(), goalies2.next().dive());
             Result r = p.execute();
@@ -67,5 +69,4 @@ public class ChallengeMatch extends Match {
     public State getCurrentState() {
         return state;
     }
-
 }

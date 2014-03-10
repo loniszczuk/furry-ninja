@@ -6,12 +6,10 @@ import ar.com.fn.penalty.Penalty;
 import ar.com.fn.penalty.Result;
 
 import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 public class SimpleMatch extends Match {
+
+	private static final long serialVersionUID = 356312685451209485L;
 
 	private State state = new State(this.getId());
 

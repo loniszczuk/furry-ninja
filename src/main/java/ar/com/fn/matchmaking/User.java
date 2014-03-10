@@ -1,8 +1,10 @@
 package ar.com.fn.matchmaking;
 
-public class User {
+import ar.com.fn.storage.Identificable;
 
-    private String username;
+public class User extends Identificable {
+	private static final long serialVersionUID = -3071984290122615095L;
+	private String username;
 
     public User(String username) {
         this.username = username;

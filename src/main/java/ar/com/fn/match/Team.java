@@ -31,11 +31,11 @@ public class Team {
     }
 
     public Iterable<Kicker> kickers() {
-        return new RingIterator(this.kickers);
+        return new RingIterator<Kicker>(this.kickers);
     }
 
     public Iterable<Goalie> goalies() {
-        return new RingIterator(this.goalies);
+        return new RingIterator<Goalie>(this.goalies);
     }
 
 

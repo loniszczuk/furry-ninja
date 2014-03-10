@@ -1,17 +1,16 @@
 package ar.com.fn.match;
 
-import ar.com.fn.utils.IdGenerator;
+import ar.com.fn.storage.Identificable;
 
-public abstract class Match {
+public abstract class Match extends Identificable {
 
-    private String id = IdGenerator.generate();
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2115796460026721697L;
 
-    protected Match() {
+	protected Match() {
         Matches.instance().registerMatch(this);
-    }
-
-    public String getId() {
-        return this.id;
     }
 
     public abstract State getCurrentState();
