@@ -4,9 +4,6 @@ import com.google.gson.Gson;
 
 import spark.ResponseTransformerRoute;
 
-/**
- * @author jformoso
- */
 public abstract class JsonRoute extends ResponseTransformerRoute {
 
     private Gson gson = new Gson();

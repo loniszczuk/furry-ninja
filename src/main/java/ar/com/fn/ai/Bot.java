@@ -1,8 +1,8 @@
 package ar.com.fn.ai;
 
-import ar.com.fn.match.Position;
-import ar.com.fn.match.goalie.Dive;
-import ar.com.fn.match.goalie.Goalie;
+import ar.com.fn.penalty.Position;
+import ar.com.fn.goalie.Dive;
+import ar.com.fn.goalie.Goalie;
 
 import java.util.HashMap;
 import java.util.Map;

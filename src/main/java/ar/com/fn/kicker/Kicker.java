@@ -1,4 +1,4 @@
-package ar.com.fn.match.kicker;
+package ar.com.fn.kicker;
 
 public abstract class Kicker {
 

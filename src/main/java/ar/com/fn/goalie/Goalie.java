@@ -1,4 +1,4 @@
-package ar.com.fn.match.goalie;
+package ar.com.fn.goalie;
 
 
 public abstract class Goalie {

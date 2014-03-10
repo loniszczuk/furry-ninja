@@ -1,9 +1,12 @@
 package ar.com.fn.match;
 
-import ar.com.fn.match.kicker.Kick;
-import ar.com.fn.match.kicker.Kicker;
-import ar.com.fn.match.kicker.SimpleKicker;
-import static ar.com.fn.match.Position.*;
+import ar.com.fn.kicker.Kick;
+import ar.com.fn.kicker.Kicker;
+import ar.com.fn.kicker.SimpleKicker;
+import static ar.com.fn.penalty.Position.*;
+
+import static org.testng.Assert.*;
+
 import org.testng.annotations.Test;
 
 public class KickerTest {
@@ -19,20 +22,20 @@ public class KickerTest {
         Kick k5 = k.kick();
 
 
-        assert k1.getGoalProbability() == 1.f;
-        assert k1.getPosition() == LEFT;
+        assertEquals(k1.getGoalProbability(), 1.f);
+        assertEquals(k1.getPosition(), LEFT);
 
-        assert k2.getGoalProbability() == 1.f;
-        assert k2.getPosition() == CENTER;
+        assertEquals(k2.getGoalProbability(), 1.f);
+        assertEquals(k2.getPosition(), CENTER);
 
-        assert k3.getGoalProbability() == 1.f;
-        assert k3.getPosition() == RIGHT;
+        assertEquals(k3.getGoalProbability(), 1.f);
+        assertEquals(k3.getPosition(), RIGHT);
 
-        assert k4.getGoalProbability() == 1.f;
-        assert k4.getPosition() == CENTER;
+        assertEquals(k4.getGoalProbability(), 1.f);
+        assertEquals(k4.getPosition(), CENTER);
 
-        assert k5.getGoalProbability() == 1.f;
-        assert k5.getPosition() == CENTER;
+        assertEquals(k5.getGoalProbability(), 1.f);
+        assertEquals(k5.getPosition(), CENTER);
 
     }
 }

@@ -1,4 +1,4 @@
-package ar.com.fn;
+package ar.com.fn.utils;
 /**
  * @author jformoso
  */

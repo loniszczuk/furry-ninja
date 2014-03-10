@@ -1,11 +1,15 @@
 package ar.com.fn.match;
 
-import ar.com.fn.match.goalie.SimpleGoalie;
-import ar.com.fn.match.kicker.SimpleKicker;
+import ar.com.fn.goalie.SimpleGoalie;
+import ar.com.fn.kicker.SimpleKicker;
+import ar.com.fn.penalty.Position;
 import org.testng.annotations.*;
 
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
-public class MatchTest {
+
+public class SimpleMatchTest {
 
     @Test
     public void test() {
@@ -26,12 +30,12 @@ public class MatchTest {
         t2.addGoalie(new SimpleGoalie("jose", 1, Position.CENTER));
 
 
-        Match m = new Match(t1, t2);
+        SimpleMatch m = new SimpleMatch(t1, t2);
 
         State s = m.getCurrentState();
 
-        assert s.isFinished();
-        assert s.getWinner().equals(t2.getName());
+        assertTrue(s.isFinished());
+        assertEquals(s.getWinner(), t2.getName());
     }
 
 
@@ -54,12 +58,12 @@ public class MatchTest {
         t2.addGoalie(new SimpleGoalie("jose", 0.001f, Position.LEFT));
 
 
-        Match m = new Match(t1, t2);
+        SimpleMatch m = new SimpleMatch(t1, t2);
 
         State s = m.getCurrentState();
 
-        assert s.isFinished();
-        assert s.getWinner().equals(t1.getName());
+        assertTrue(s.isFinished());
+        assertEquals(s.getWinner(), t1.getName());
     }
 
 }

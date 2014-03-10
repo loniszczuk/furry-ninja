@@ -1,8 +1,7 @@
-package ar.com.fn.match.penalty;
+package ar.com.fn.penalty;
 
-import ar.com.fn.match.Position;
-import ar.com.fn.match.goalie.Dive;
-import ar.com.fn.match.kicker.Kick;
+import ar.com.fn.goalie.Dive;
+import ar.com.fn.kicker.Kick;
 
 import java.util.Random;
 

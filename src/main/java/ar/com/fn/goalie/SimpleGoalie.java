@@ -1,6 +1,6 @@
-package ar.com.fn.match.goalie;
+package ar.com.fn.goalie;
 
-import ar.com.fn.match.Position;
+import ar.com.fn.penalty.Position;
 
 import java.util.HashMap;
 import java.util.Map;

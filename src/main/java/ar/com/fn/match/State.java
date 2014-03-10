@@ -2,10 +2,14 @@ package ar.com.fn.match;
 
 public class State {
 
-	private Integer id;
+	private String matchId;
     private boolean finished = false;
     private String winner;
     private MatchLog matchLog = new MatchLog();
+
+    public State(String matchId) {
+        this.matchId = matchId;
+    }
 
     public boolean isFinished() {
         return finished;
@@ -37,11 +41,8 @@ public class State {
 		this.matchLog = matchLog;
 	}
 
-	public Integer getId() {
-		return id;
+	public String getMatchId() {
+		return matchId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
 }

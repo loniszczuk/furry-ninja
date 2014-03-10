@@ -1,6 +1,6 @@
-package ar.com.fn.match.kicker;
+package ar.com.fn.kicker;
 
-import ar.com.fn.match.Position;
+import ar.com.fn.penalty.Position;
 
 public class SimpleKicker extends Kicker {
 

@@ -1,6 +1,6 @@
 package ar.com.fn.match;
 
-import ar.com.fn.match.penalty.Result;
+import ar.com.fn.penalty.Result;
 
 import java.util.ArrayList;
 import java.util.List;

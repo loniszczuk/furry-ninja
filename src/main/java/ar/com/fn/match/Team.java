@@ -1,12 +1,10 @@
 package ar.com.fn.match;
 
-import ar.com.fn.match.goalie.Goalie;
-import ar.com.fn.match.kicker.Kicker;
+import ar.com.fn.goalie.Goalie;
+import ar.com.fn.kicker.Kicker;
 import ar.com.fn.utils.RingIterator;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 /**

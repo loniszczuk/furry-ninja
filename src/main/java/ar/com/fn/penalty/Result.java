@@ -1,6 +1,4 @@
-package ar.com.fn.match.penalty;
-
-import ar.com.fn.match.Position;
+package ar.com.fn.penalty;
 
 public class Result {
 

@@ -1,13 +1,16 @@
 package ar.com.fn.match;
 
-import ar.com.fn.match.goalie.Dive;
-import ar.com.fn.match.kicker.Kick;
-import ar.com.fn.match.penalty.Penalty;
-import ar.com.fn.match.penalty.Result;
+import ar.com.fn.goalie.Dive;
+import ar.com.fn.kicker.Kick;
+import ar.com.fn.penalty.Penalty;
+import ar.com.fn.penalty.Position;
+import ar.com.fn.penalty.Result;
 import org.testng.annotations.Test;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.testng.Assert.assertEquals;
 
 /**
  * Created by leandro on 5/3/14.
@@ -24,9 +27,9 @@ public class PenaltyTest {
 
         Result r = p.execute();
 
-        assert r.isGoal() == false;
-        assert r.getKickPosition() == Position.CENTER;
-        assert r.getDivePosition() == Position.CENTER;
+        assertEquals(r.isGoal(), false);
+        assertEquals(r.getKickPosition(), Position.CENTER);
+        assertEquals(r.getDivePosition(), Position.CENTER);
 
     }
 
@@ -40,9 +43,9 @@ public class PenaltyTest {
 
         Result r = p.execute();
 
-        assert r.isGoal() == true;
-        assert r.getKickPosition() == Position.CENTER;
-        assert r.getDivePosition() == Position.CENTER;
+        assertEquals(r.isGoal(), true);
+        assertEquals(r.getKickPosition(), Position.CENTER);
+        assertEquals(r.getDivePosition(), Position.CENTER);
 
     }
 
