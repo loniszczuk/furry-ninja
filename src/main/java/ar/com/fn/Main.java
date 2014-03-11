@@ -12,12 +12,13 @@ import ar.com.fn.web.WebRoutes;
 public class Main {
 
 	public static void main(String[] args) {
+		//static content
+		staticFileLocation("/public");
 		// api
 		MatchesRoutes.registerRoutes();
 		ChallengesRoutes.registerRoutes();
 		UsersRoutes.registerRoutes();
 		// web
-		staticFileLocation("/public");
 		WebRoutes.registerRoutes();
 	}
 }
