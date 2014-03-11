@@ -1,23 +1,18 @@
 package ar.com.fn.api.users;
 
 import static ch.lambdaj.Lambda.convert;
-import static ch.lambdaj.Lambda.map;
 import static spark.Spark.get;
-
-import static ch.lambdaj.Lambda.forEach;
-
-
+import spark.Request;
+import spark.Response;
 import ar.com.fn.api.JsonRoute;
 import ar.com.fn.api.challenges.ChallengeResponse;
 import ar.com.fn.domain.matchmaking.Challenge;
-import ch.lambdaj.function.convert.Converter;
-import spark.Request;
-import spark.Response;
 import ar.com.fn.domain.matchmaking.Matchmaking;
 import ar.com.fn.domain.matchmaking.User;
+import ch.lambdaj.function.convert.Converter;
 
 public class UsersRoutes {
-
+ 
 	public static void registerRoutes() {
 		// API METHODS
 		get(new JsonRoute("/me/challenges") {
