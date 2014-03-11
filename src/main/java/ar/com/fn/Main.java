@@ -6,15 +6,18 @@ import static spark.Spark.staticFileLocation;
 
 import java.util.Map;
 
+import ar.com.fn.api.challenges.ChallengesRoutes;
+import ar.com.fn.api.matches.MatchesRoutes;
+import ar.com.fn.api.users.UsersRoutes;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 import spark.template.freemarker.FreeMarkerRoute;
-import ar.com.fn.match.Matches;
-import ar.com.fn.match.State;
-import ar.com.fn.matchmaking.User;
-import ar.com.fn.matchmaking.Users;
+import ar.com.fn.domain.match.Matches;
+import ar.com.fn.domain.match.State;
+import ar.com.fn.domain.matchmaking.User;
+import ar.com.fn.domain.matchmaking.Users;
 
 import com.google.gson.Gson;
 
