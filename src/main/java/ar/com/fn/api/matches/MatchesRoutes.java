@@ -1,6 +1,6 @@
 package ar.com.fn.api.matches;
 
-import ar.com.fn.JsonRoute;
+import ar.com.fn.api.JsonRoute;
 import ar.com.fn.domain.ai.Bot;
 import ar.com.fn.domain.kicker.SimpleKicker;
 import ar.com.fn.domain.match.Matches;

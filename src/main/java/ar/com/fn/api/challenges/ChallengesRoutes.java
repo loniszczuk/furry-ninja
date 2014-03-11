@@ -1,6 +1,6 @@
 package ar.com.fn.api.challenges;
 
-import ar.com.fn.JsonRoute;
+import ar.com.fn.api.JsonRoute;
 import ar.com.fn.domain.goalie.Goalie;
 import ar.com.fn.domain.goalie.SimpleGoalie;
 import ar.com.fn.domain.kicker.Kicker;
@@ -55,9 +55,13 @@ public class ChallengesRoutes {
 			@Override
 			public Object handle(Request request, Response response) {
 				Challenge c = Matchmaking.instance().getChallenge(request.params("id"));
-				response.status(200);
-
-				return c;
+                if (c == null) {
+                    response.status(404);
+                    return "";
+                } else {
+                    response.status(200);
+                    return ChallengeResponse.fromChallenge(c);
+                }
 			}
 		});
 

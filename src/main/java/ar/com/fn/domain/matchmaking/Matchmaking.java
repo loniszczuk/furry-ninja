@@ -34,6 +34,7 @@ public class Matchmaking {
 	}
 
 	public Collection<Challenge> getActiveChallenges(User u) {
-		return this.challenges.getAll(having(on(Challenge.class).getChallenged().getUsername(), IsEqual.equalTo(u.getUsername())));
+		return this.challenges.getAll(having(on(Challenge.class).getChallenged().getUsername(), IsEqual.equalTo(u.getUsername())).or(
+                having(on(Challenge.class).getChallenger().getUsername(), IsEqual.equalTo(u.getUsername()))));
 	}
 }

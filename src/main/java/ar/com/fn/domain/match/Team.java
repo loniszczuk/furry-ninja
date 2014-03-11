@@ -2,7 +2,7 @@ package ar.com.fn.domain.match;
 
 import ar.com.fn.domain.goalie.Goalie;
 import ar.com.fn.domain.kicker.Kicker;
-import ar.com.fn.domain.utils.RingIterator;
+import ar.com.fn.utils.RingIterator;
 
 import java.util.ArrayList;
 import java.util.List;

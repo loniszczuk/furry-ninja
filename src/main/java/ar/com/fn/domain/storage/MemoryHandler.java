@@ -5,9 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import static ch.lambdaj.Lambda.*;
 
-import ch.lambdaj.function.matcher.HasArgumentWithValue;
-
-import ar.com.fn.domain.utils.IdGenerator;
+import ar.com.fn.utils.IdGenerator;
 
 /**
  * @author jformoso
@@ -52,7 +50,7 @@ public class MemoryHandler<T extends Identificable> implements IdentificableHand
 	}
 	
 	// tech specific methods (must be implemented again in different kind of handlers)
-	public Collection<T> getAll(HasArgumentWithValue<Object, String> having) {
-		return filter(having, this.db.values());
+	public Collection<T> getAll(org.hamcrest.Matcher<?> matcher) {
+		return filter(matcher, this.db.values());
 	}
 }
