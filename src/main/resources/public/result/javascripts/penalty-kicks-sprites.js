@@ -84,7 +84,21 @@
 		},
 		
 		collision: function(col) {
+		  var msgLabel;
+		  
 		  console.log("Ball collision!")
+		  if (col.obj.isA("Kicker")) {
+			  console.log("Shoot!")
+		  }else if (col.obj.isA("Goalie")) {
+			  msgLabel = "Catch!";
+			  console.log("Catch!")
+		  }else if (col.obj.isA("Goal")) {
+			  msgLabel = "Goal!";
+			  console.log("Goal!")
+		  }else {
+			  console.log("Ooops!")
+		  }
+		  
 		  if(Q.state.get("readyToKick")) {
 			  console.log("moving ball!");
 			  this.moveToGoal();
@@ -93,21 +107,8 @@
 			  console.log("Ball moving, then stop")
 			  this.stop();
 			  this.off("hit", this, "collision");
-			  Q.stageScene("endGame",1, { label: "You Won!" }); 
-	          this.destroy();
-	          window.setupScene(1, Q.state.get("kickerMoves"), Q.state.get("goalieMoves"));
+			  Q.stageScene("nextMove",1, { label: msgLabel }); 
 		  }
-		  
-		  if (col.obj.isA("Kicker")) {
-			  console.log("Shoot!")
-		  }else if (col.obj.isA("Goalie")) {
-			  console.log("Catch!")
-		  }else if (col.obj.isA("Goal")) {
-			  console.log("Goal!")
-		  }else {
-			  console.log("Ooops!")
-		  }
-			  
 		},
 	});
 	
@@ -162,14 +163,17 @@
 		move : function() {
 			if (this.p.vx == 0 && !this.p.jump) {
 				this.p.jump = true;
-				this.p.points = this.p.jumpingPoints;
 				this.p.vx = 100 * this.p.direction
-				if (this.p.direction > 0)
+				if (this.p.direction > 0) {
 					this.play("jump_right");
-				else if (this.p.direction < 0)
+					this.p.points = this.p.jumpingPoints;
+				}else if (this.p.direction < 0){
 					this.play("jump_left");	
-				else if (this.p.direction == 0)
-					this.play("stand");	
+					this.p.points = this.p.jumpingPoints;
+				}else if (this.p.direction == 0){
+					this.play("stand");
+					this.p.points = this.p.standingPoints;
+				}
 			}
 		},
 	

@@ -14,9 +14,9 @@
 	
 	window.addEventListener("load", function() {
 	
-		var Q = window.Q = Quintus().include("Sprites, 2D, Scenes, Anim, UI, Input")
+		var Q = window.Q = Quintus().include("Sprites, 2D, Scenes, Anim, UI, Input, Touch")
 									.include("PenaltyKicksSprites, PenaltyKicksScenes")
-									.setup({maximize : true});
+									.setup({maximize : true}).touch();
 		
 		//Q.debug = true;
 		//Q.debugFill = true;
