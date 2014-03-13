@@ -13,6 +13,7 @@ import ar.com.fn.domain.storage.MemoryHandler;
 
 public class Users {
 
+
 	private static final Users instance = new Users();
 
 	public static Users instance() {
@@ -26,7 +27,11 @@ public class Users {
 		return Collections.unmodifiableCollection(onlineUsers.getAll());
 	}
 
-	public User getByEmail(String email) {
+    public Collection<User> getUsers() {
+        return Collections.unmodifiableCollection(onlineUsers.getAll());
+    }
+
+    public User getByEmail(String email) {
 		Collection<User> all = this.users.getAll(having(on(User.class).getEmail(), IsEqual.equalTo(email)));
 		if (all.size() < 1) return null;
 		
@@ -48,4 +53,7 @@ public class Users {
 	public IdentificableHandler<User> db() {
 		return this.users;
 	}
+
+
+
 }

@@ -32,17 +32,28 @@ public class WebRoutes {
                 return "";
             }
         });
+        get(new FreeMarkerRoute("/") {
+
+            @Override
+            public ModelAndView handle(Request request, Response response) {
+                // The ftl files need to be located in the directory:
+                // {resources-dir}/spark/template/freemarker
+                // hence in maven: src/main/resources/spark/template/freemarker
+                return modelAndView(null, "home.ftl");
+
+            }
+        });
 
 		get(new FreeMarkerRoute("/result/:id") {
-			@Override
-			public ModelAndView handle(Request request, Response response) {
-				// The ftl files need to be located in the directory:
-				// {resources-dir}/spark/template/freemarker
-				// hence in maven: src/main/resources/spark/template/freemarker
-				State state = Matches.instance().getMatch(request.params(":id")).getCurrentState();
-				if (state == null) halt(404, "Not found!");
-				return modelAndView(state, "result.ftl");
-			}
-		});
+            @Override
+            public ModelAndView handle(Request request, Response response) {
+                // The ftl files need to be located in the directory:
+                // {resources-dir}/spark/template/freemarker
+                // hence in maven: src/main/resources/spark/template/freemarker
+                State state = Matches.instance().getMatch(request.params(":id")).getCurrentState();
+                if (state == null) halt(404, "Not found!");
+                return modelAndView(state, "result.ftl");
+            }
+        });
 	}
 }

@@ -1,13 +1,5 @@
 package ar.com.fn.api.users;
 
-import static ch.lambdaj.Lambda.convert;
-import static spark.Spark.get;
-import static spark.Spark.post;
-
-import org.apache.commons.codec.digest.DigestUtils;
-
-import spark.Request;
-import spark.Response;
 import ar.com.fn.api.JsonRoute;
 import ar.com.fn.api.challenges.ChallengeResponse;
 import ar.com.fn.domain.matchmaking.Challenge;
@@ -18,8 +10,16 @@ import ar.com.fn.security.Authentication;
 import ar.com.fn.security.AuthenticationResult;
 import ar.com.fn.security.Tokens;
 import ch.lambdaj.function.convert.Converter;
-
 import com.google.gson.Gson;
+import org.apache.commons.codec.digest.DigestUtils;
+import spark.Request;
+import spark.Response;
+
+import java.util.Collection;
+
+import static ch.lambdaj.Lambda.convert;
+import static spark.Spark.get;
+import static spark.Spark.post;
 
 public class UsersRoutes {
 
@@ -87,5 +87,20 @@ public class UsersRoutes {
 						u.getId(), 2)), u.getId());
 			}
 		});
+        get(new JsonRoute("/users") {
+
+            @Override
+            public Object handle(Request request, Response response) {
+                String status = request.params("status");
+                if (status != null && status.equals("online")) {
+                    Collection<User> users = Users.instance().getOnlineUsers();
+                    return users;
+                } else {
+                    // Despues debería devolver todos los usuarios
+                    Collection<User> users = Users.instance().getUsers();
+                    return users;
+                }
+            }
+        });
 	}
 }
