@@ -107,7 +107,10 @@
 			  console.log("Ball moving, then stop")
 			  this.stop();
 			  this.off("hit", this, "collision");
-			  Q.stageScene("nextMove",1, { label: msgLabel }); 
+			  if (Q.state.get("totalMoves") == Q.state.get("nextMove"))
+				  Q.stageScene("gameEnded", 1);
+			 else
+				  Q.stageScene("nextMove",1, { label: msgLabel }); 
 		  }
 		},
 	});
@@ -138,12 +141,12 @@
 				x : Q.width/2 + 44,
 				y : Q.height/2 - 140,
 				vy : 0,
-				w : 145,
-				h : 103,
+				w : 90,
+				h : 84,
 				jump : false,
 				scale : 1,
-				standingPoints: [[-30,-50],[30,-50],[30,50],[-30,50]],
-				jumpingPoints: [[-72,-25],[72,-25],[72,25],[-72,25]],
+				standingPoints: [[-25,-40],[25,-40],[25,40],[-25,40]],
+				jumpingPoints: [[-46,-20],[46,-20],[46,20],[-46,20]],
 			});
 			this.p.points = this.p.standingPoints;
 			this.add("2d, animation");

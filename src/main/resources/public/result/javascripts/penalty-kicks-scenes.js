@@ -17,6 +17,21 @@
 		goalie = stage.insert(new Q.Goalie({direction: Q.state.get("goalieMoves")[Q.state.get("nextMove")]}));
 	});
 
+	Q.scene('start',function(stage) {
+		  var box = stage.insert(new Q.UI.Container({x: Q.width/2, y: Q.height/2, fill: "rgba(0,0,0,0.5)"}));
+		  var button = box.insert(new Q.UI.Button({ x: 0, y: 0, fill: "#CCCCCC",label: "Go!" }))         
+		  var label = box.insert(new Q.UI.Text({x:10, y: -50 - button.p.h, label:"Player1" }));
+		  var label = box.insert(new Q.UI.Text({x:10, y: -30 - button.p.h, label:"vs" }));
+		  var label = box.insert(new Q.UI.Text({x:10, y: -10 - button.p.h, label:"Player2" }));
+		  button.on("click",function() {
+			console.log("click");
+		    Q.clearStages();
+		    Q.stageScene('players');
+		  });
+		  box.fit(20);
+		});
+	
+	
 	Q.scene('nextMove',function(stage) {
 	  var box = stage.insert(new Q.UI.Container({x: Q.width/2, y: Q.height/2, fill: "rgba(0,0,0,0.5)"}));
 	  var button = box.insert(new Q.UI.Button({ x: 0, y: 0, fill: "#CCCCCC",label: "Next move!" }))         
@@ -29,6 +44,18 @@
 	  });
 	  box.fit(20);
 	});
+	
+	
+	Q.scene('gameEnded',function(stage) {
+		  var box = stage.insert(new Q.UI.Container({x: Q.width/2, y: Q.height/2, fill: "rgba(0,0,0,0.5)"}));
+		  var button = box.insert(new Q.UI.Button({ x: 0, y: 0, fill: "#CCCCCC",label: "Continue" }))         
+		  var label = box.insert(new Q.UI.Text({x:10, y: -10 - button.p.h, label: Q.state.get("winner") + " wins." }));
+		  button.on("click",function() {
+			console.log("click");
+		    Q.clearStages();
+		  });
+		  box.fit(20);
+		});
 	
 	function setupNextMove() {
 		Q.state.set("nextMove", Q.state.get("nextMove") + 1);
