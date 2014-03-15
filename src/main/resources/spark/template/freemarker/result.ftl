@@ -36,12 +36,17 @@
 		Q.state.set("winner", "${getWinner()}");
 		Q.state.set("nextMove", 1);
 		
-		Q.load("goalie_14x2.json, goalie_14x2.png, background.png", function() {
+		Q.load("goalie_14x2.json, goalie_14x2.png, kicker_16x1.json, kicker_16x1.png, background.png", function() {
 		    Q.compileSheets("goalie_14x2.png","goalie_14x2.json");
+		    Q.compileSheets("kicker_16x1.png","kicker_16x1.json");
 		    Q.animations("goalie", {
 		      jump_right: { frames: [0,1,2,3,4,5,6,7,8,9,10,11,12,13], rate: 1/4, flip: false, loop: false},
 		      jump_left: { frames: [27,26,25,24,23,22,21,20,19,18,17,16,15,14], rate: 1/4, flip: false, loop: false },
 		      stand: { frames: [0,1,2,3,2,1,0,27,26,25,26,27,0], rate: 1/4, flip: false, loop: false },
+		    });
+		   Q.animations("kicker", {
+		      shoot: { frames: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15], rate: 1/5, flip: false, loop: false},
+		      stand: { frames: [0,1,2], rate: 1/4, flip: false, loop: false },
 		    });
 		});
 	

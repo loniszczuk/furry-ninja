@@ -1,5 +1,9 @@
 ;Quintus.PenaltyKicksSprites = function(Q) {
 	
+	var SPRITE_NONE = 0;
+	var SPRITE_BALL = 1;
+	var SPRITE_OTHER = 2; 
+	
 	Q.gravityX = 0;
 	Q.gravityY = 0;
 	
@@ -24,6 +28,7 @@
 				h : 20,
 				x : Q.width/2 + 44,
 				y : Q.height/2 - 200,
+				type : SPRITE_BALL,
 			});
 			this.add("2d");
 			this.on("hit", this, "collision");
@@ -65,6 +70,7 @@
 				x : Q.width/2 + 44,
 				y : Q.height/2 + 220,
 				ballPoints: [[-10,-10],[10,-10],[10,10],[-10,10]],
+				type: SPRITE_BALL,
 				
 			});
 			this.p.points = this.p.ballPoints;
@@ -115,22 +121,38 @@
 		},
 	});
 	
-	Q.AbstractBall.extend("Kicker", {
+	Q.Sprite.extend("Kicker", {
 		init : function(p) {
 			this._super(p, {
-				color : "red",
-				w : 50,
-				h : 50,
-				x : Q.width/2 + 44,
-				y : Q.height/2 + 300,
+				sheet : "kicker",
+				sprite : "kicker",
+				w : 48,
+				h : 87,
+				x : Q.width/2 - 10,
+				y : Q.height/2 + 230,
+				vy:-30, 
+				vx: 25,
+				scale : 1,
+				standingPoints: [[-25,-40],[25,-40],[25,40],[-25,40]],
+				shootingPoints: [[-4,10],[12,37],[-10,20]],
+				type: SPRITE_BALL,
 			});
-			this.add("2d")
+			this.p.points = this.p.shootingPoints;
+			this.add("2d, animation");
+			this.play("shoot");
 			this.on("hit", this, "collision");
 		},
 		collision: function(col) {
 			console.log("Kicker shoots!");
+			this.p.type = SPRITE_NONE,
+			this.p.x = this.p.x -1;
+			this.p.y = this.p.y +1;
 			this.stop();
-		}
+		},
+		stop : function() {
+			this.p.vx = 0;
+			this.p.vy = 0;
+		},
 	});
 	
 	Q.Sprite.extend("Goalie", {
@@ -147,15 +169,19 @@
 				scale : 1,
 				standingPoints: [[-25,-40],[25,-40],[25,40],[-25,40]],
 				jumpingPoints: [[-46,-20],[46,-20],[46,20],[-46,20]],
+				type : SPRITE_BALL,
+				moveDelay: 50,
 			});
 			this.p.points = this.p.standingPoints;
 			this.add("2d, animation");
 			this.play("stand");
 			this.on("hit", this, "collision");
-			this.move();
 		},
 			
 		step : function(dt) {
+			this.p.moveDelay = this.p.moveDelay -1; 
+			if (this.p.moveDelay == 0)
+				this.move();
 			if (this.p.vx != 0) {
 				this.p.vx = this.p.vx + (-1 * this.p.direction);
 			}else{
@@ -166,7 +192,7 @@
 		move : function() {
 			if (this.p.vx == 0 && !this.p.jump) {
 				this.p.jump = true;
-				this.p.vx = 100 * this.p.direction
+				this.p.vx = 100 * this.p.direction ;
 				if (this.p.direction > 0) {
 					this.play("jump_right");
 					this.p.points = this.p.jumpingPoints;

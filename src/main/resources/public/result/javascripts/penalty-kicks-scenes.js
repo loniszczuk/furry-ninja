@@ -12,7 +12,7 @@
 		Q.clearStage();
 		stage.insert(new Q.Background({type: Q.SPRITE_UI}));
 		stage.insert(new Q.Goal());
-		kicker = stage.insert(new Q.Kicker({vy:-40}));
+		kicker = stage.insert(new Q.Kicker());
 		ball = stage.insert(new Q.Ball({direction: Q.state.get("kickerMoves")[Q.state.get("nextMove")]}));
 		goalie = stage.insert(new Q.Goalie({direction: Q.state.get("goalieMoves")[Q.state.get("nextMove")]}));
 	});
