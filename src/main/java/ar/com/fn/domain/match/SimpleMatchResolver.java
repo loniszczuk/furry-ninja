@@ -7,7 +7,9 @@ import ar.com.fn.domain.penalty.ExecutedPenalty;
 import ar.com.fn.domain.penalty.Penalty;
 import ar.com.fn.domain.penalty.PenaltyResult;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class SimpleMatchResolver extends MatchResolver {
 
@@ -32,7 +34,7 @@ public class SimpleMatchResolver extends MatchResolver {
         Iterator<Kicker> kickers = teamOne.kickers().iterator();
         Iterator<Goalie> goalies = teamTwo.goalies().iterator();
 
-        MatchLog log = new MatchLog();
+        List<PenaltyResult> penalties = new ArrayList<>();
 
         int goals = 0;
         for (int i = 0; i < 5; ++i) {
@@ -45,7 +47,7 @@ public class SimpleMatchResolver extends MatchResolver {
                     playerOne.getUsername(), kicker.getName(), ep.getKick().getPosition(),
                     playerTwo.getUsername(), goalie.getName(), ep.getDive().getDominantPosition(),
                     ep.isGoal());
-            log.addMove(res);
+            penalties.add(res);
 
             if (res.isGoal()) {
                 ++goals;
@@ -55,7 +57,7 @@ public class SimpleMatchResolver extends MatchResolver {
         Score score = new Score(goals, 0);
         String winner = goals > 2 ? playerOne.getUsername() : playerTwo.getUsername();
 
-        this.match = new Match(playerOne.getUsername(), playerTwo.getUsername(), winner, score, log);
+        this.match = new Match(playerOne.getUsername(), playerTwo.getUsername(), winner, score, penalties);
     }
 
 	public Match getMatch() {

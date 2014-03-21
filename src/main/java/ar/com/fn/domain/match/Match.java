@@ -1,8 +1,13 @@
 package ar.com.fn.domain.match;
 
+import ar.com.fn.domain.penalty.PenaltyResult;
 import ar.com.fn.domain.storage.Identificable;
 import ar.com.fn.utils.IdGenerator;
 import org.joda.time.DateTime;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Match extends Identificable {
 
@@ -13,16 +18,16 @@ public class Match extends Identificable {
 
     private String winner;
     private Score score;
-    private MatchLog matchLog = new MatchLog();
+    private List<PenaltyResult> penalties;
 
-    public Match(String playerOne, String playerTwo, String winner, Score score, MatchLog matchLog) {
+    public Match(String playerOne, String playerTwo, String winner, Score score, List<PenaltyResult> penalties) {
         this.id = IdGenerator.generate();
         this.timestamp = DateTime.now();
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
         this.winner = winner;
         this.score = score;
-        this.matchLog = matchLog;
+        this.penalties = penalties;
 
         Matches.instance().registerMatch(this);
     }
@@ -43,7 +48,7 @@ public class Match extends Identificable {
         return score;
     }
 
-    public MatchLog getMatchLog() {
-        return matchLog;
+    public List<PenaltyResult> getPenalties() {
+        return Collections.unmodifiableList(penalties);
     }
 }

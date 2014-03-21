@@ -7,7 +7,9 @@ import ar.com.fn.domain.penalty.ExecutedPenalty;
 import ar.com.fn.domain.penalty.Penalty;
 import ar.com.fn.domain.penalty.PenaltyResult;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class ChallengeMatchResolver extends MatchResolver {
 
@@ -38,8 +40,9 @@ public class ChallengeMatchResolver extends MatchResolver {
         Iterator<Kicker> kickers2 = teamTwo.kickers().iterator();
         Iterator<Goalie> goalies2 = teamTwo.goalies().iterator();
 
-//        int goals = 0;
-        MatchLog log = new MatchLog();
+
+        List<PenaltyResult> penalties = new ArrayList<>();
+
         for (int i = 0; i < 5; ++i) {
             Kicker kicker1 = kickers1.next();
             Goalie goalie2 = goalies2.next();
@@ -51,7 +54,7 @@ public class ChallengeMatchResolver extends MatchResolver {
                     playerOne.getUsername(), kicker1.getName(), ep.getKick().getPosition(),
                     playerTwo.getUsername(), goalie2.getName(), ep.getDive().getDominantPosition(),
                     ep.isGoal());
-            log.addMove(res);
+            penalties.add(res);
 
             if (res.isGoal()) {
                 ++team1Score;
@@ -68,7 +71,7 @@ public class ChallengeMatchResolver extends MatchResolver {
                     playerOne.getUsername(), goalie1.getName(), ep2.getDive().getDominantPosition(),
                     ep.isGoal());
 
-            log.addMove(res2);
+            penalties.add(res2);
 
             if (res2.isGoal()) {
                 ++team2Score;
@@ -86,7 +89,7 @@ public class ChallengeMatchResolver extends MatchResolver {
         }
         Score score = new Score(team1Score, team2Score);
 
-        this.match = new Match(playerOne.getUsername(), playerTwo.getUsername(), winner, score, log);
+        this.match = new Match(playerOne.getUsername(), playerTwo.getUsername(), winner, score, penalties);
 
     }
 
