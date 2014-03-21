@@ -4,7 +4,7 @@ package ar.com.fn.api.users;
  * @author jformoso
  */
 public class RegistrationRequest {
-	private String nickname;
+	private String username;
 	private String email;
 	private String password;
 
@@ -24,11 +24,11 @@ public class RegistrationRequest {
 		this.email = email;
 	}
 
-	public String getNickname() {
-		return nickname;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 }

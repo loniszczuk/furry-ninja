@@ -9,6 +9,7 @@ import ar.com.fn.domain.match.*;
 import ar.com.fn.domain.matchmaking.Challenge;
 import ar.com.fn.domain.matchmaking.Matchmaking;
 import ar.com.fn.domain.matchmaking.User;
+import ar.com.fn.domain.matchmaking.Users;
 import ar.com.fn.domain.penalty.Position;
 import com.google.gson.Gson;
 import spark.Request;
@@ -83,15 +84,17 @@ public class ChallengesRoutes {
 
 				c.setChallengedTeam(challengedTeam);
 
-				Match m = new ChallengeMatch(c.getChallengerTeam(), c.getChallengedTeam());
+				MatchResolver m = new ChallengeMatchResolver(
+                        c.getChallenger(), c.getChallengerTeam(),
+                        c.getChallenged(), c.getChallengedTeam());
 
 				c.setMatchId(m.getId());
 
-				State state = m.getCurrentState();
+				Match match = m.getMatch();
 
 				response.status(200);
 
-				return state;
+				return match;
 			}
 		});
 

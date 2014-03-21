@@ -66,7 +66,7 @@ public class UsersRoutes {
 					halt(400, "User already exists -- " + r.getEmail());
 				}
 
-				User u = new User(r.getEmail(), DigestUtils.sha1Hex(r.getPassword()), r.getNickname());
+				User u = new User(r.getEmail(), DigestUtils.sha1Hex(r.getPassword()), r.getUsername());
 				Users.instance().db().save(u);
 
 				return new RegistrationResponse(new Session(Tokens.instance().createToken(u.getId(), 1), Tokens.instance().createToken(

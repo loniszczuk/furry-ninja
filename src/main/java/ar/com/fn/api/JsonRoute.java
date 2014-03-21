@@ -3,11 +3,10 @@ package ar.com.fn.api;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.*;
 import spark.ResponseTransformerRoute;
 import ar.com.fn.utils.GsonFactory;
 
-import com.google.gson.Gson;
- 
 public abstract class JsonRoute extends ResponseTransformerRoute {
 
     private Gson gson = GsonFactory.giveGson();
@@ -28,4 +27,5 @@ public abstract class JsonRoute extends ResponseTransformerRoute {
 	public String render(Object model) {
 		return gson.toJson(model);
 	}
+
 }

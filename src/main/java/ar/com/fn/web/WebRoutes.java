@@ -11,7 +11,7 @@ import spark.Response;
 import spark.Route;
 import spark.template.freemarker.FreeMarkerRoute;
 import ar.com.fn.domain.match.Matches;
-import ar.com.fn.domain.match.State;
+import ar.com.fn.domain.match.Match;
 import ar.com.fn.domain.matchmaking.User;
 import ar.com.fn.domain.matchmaking.Users;
 
@@ -50,9 +50,9 @@ public class WebRoutes {
                 // The ftl files need to be located in the directory:
                 // {resources-dir}/spark/template/freemarker
                 // hence in maven: src/main/resources/spark/template/freemarker
-                State state = Matches.instance().getMatch(request.params(":id")).getCurrentState();
-                if (state == null) halt(404, "Not found!");
-                return modelAndView(state, "result.ftl");
+                Match match = Matches.instance().getMatch(request.params(":id"));
+                if (match == null) halt(404, "Not found!");
+                return modelAndView(match, "result.ftl");
             }
         });
 	}

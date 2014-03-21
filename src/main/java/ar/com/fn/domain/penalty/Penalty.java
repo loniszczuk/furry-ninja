@@ -17,7 +17,7 @@ public class Penalty {
         this.dive = d;
     }
 
-    public Result execute() {
+    public ExecutedPenalty execute() {
         Position position = kick.getPosition();
         float goalProbability = kick.getGoalProbability();
 
@@ -27,6 +27,6 @@ public class Penalty {
 
         boolean isGoal = r.nextFloat() < globalProbability;
 
-        return new Result(isGoal, kick.getPosition(), dive.getDominantPosition());
+        return new ExecutedPenalty(isGoal, kick, dive);
     }
 }

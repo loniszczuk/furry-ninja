@@ -38,7 +38,15 @@ public class Users {
 		return all.iterator().next();
 	}
 
-	public boolean exists(String email) {
+    public User getByUsername(String username) {
+        Collection<User> all = this.users.getAll(having(on(User.class).getUsername(), IsEqual.equalTo(username)));
+        if (all.size() < 1) return null;
+
+        return all.iterator().next();
+    }
+
+
+    public boolean exists(String email) {
 		return this.getByEmail(email) != null;
 	}
 

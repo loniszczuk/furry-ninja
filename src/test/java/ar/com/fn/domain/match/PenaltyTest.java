@@ -2,9 +2,10 @@ package ar.com.fn.domain.match;
 
 import ar.com.fn.domain.goalie.Dive;
 import ar.com.fn.domain.kicker.Kick;
+import ar.com.fn.domain.penalty.ExecutedPenalty;
 import ar.com.fn.domain.penalty.Penalty;
+import ar.com.fn.domain.penalty.PenaltyResult;
 import ar.com.fn.domain.penalty.Position;
-import ar.com.fn.domain.penalty.Result;
 import org.testng.annotations.Test;
 
 import java.util.HashMap;
@@ -25,11 +26,11 @@ public class PenaltyTest {
         Dive d = new Dive(c);
         Penalty p = new Penalty(k, d);
 
-        Result r = p.execute();
+        ExecutedPenalty r = p.execute();
 
         assertEquals(r.isGoal(), false);
-        assertEquals(r.getKickPosition(), Position.CENTER);
-        assertEquals(r.getDivePosition(), Position.CENTER);
+        assertEquals(r.getKick().getPosition(), Position.CENTER);
+        assertEquals(r.getDive().getDominantPosition(), Position.CENTER);
 
     }
 
@@ -41,11 +42,11 @@ public class PenaltyTest {
         Dive d = new Dive(c);
         Penalty p = new Penalty(k, d);
 
-        Result r = p.execute();
+        ExecutedPenalty r = p.execute();
 
         assertEquals(r.isGoal(), true);
-        assertEquals(r.getKickPosition(), Position.CENTER);
-        assertEquals(r.getDivePosition(), Position.CENTER);
+        assertEquals(r.getKick().getPosition(), Position.CENTER);
+        assertEquals(r.getDive().getDominantPosition(), Position.CENTER);
 
     }
 

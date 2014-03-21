@@ -2,6 +2,7 @@ package ar.com.fn.domain.match;
 
 import ar.com.fn.domain.goalie.SimpleGoalie;
 import ar.com.fn.domain.kicker.SimpleKicker;
+import ar.com.fn.domain.matchmaking.User;
 import ar.com.fn.domain.penalty.Position;
 import org.testng.annotations.*;
 
@@ -9,7 +10,7 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 
-public class SimpleMatchTest {
+public class SimpleMatchResolverTest {
 
     @Test
     public void test() {
@@ -30,12 +31,11 @@ public class SimpleMatchTest {
         t2.addGoalie(new SimpleGoalie("jose", 1, Position.CENTER));
 
 
-        SimpleMatch m = new SimpleMatch(t1, t2);
+        SimpleMatchResolver m = new SimpleMatchResolver(new User("u1"), t1, new User("u2"), t2);
 
-        State s = m.getCurrentState();
+        Match s = m.getMatch();
 
-        assertTrue(s.isFinished());
-        assertEquals(s.getWinner(), t2.getName());
+        assertEquals(s.getWinner(), "u2");
     }
 
 
@@ -58,12 +58,11 @@ public class SimpleMatchTest {
         t2.addGoalie(new SimpleGoalie("jose", 0.001f, Position.LEFT));
 
 
-        SimpleMatch m = new SimpleMatch(t1, t2);
+        SimpleMatchResolver m = new SimpleMatchResolver(new User("u1"), t1, new User("u2"), t2);
 
-        State s = m.getCurrentState();
+        Match s = m.getMatch();
 
-        assertTrue(s.isFinished());
-        assertEquals(s.getWinner(), t1.getName());
+        assertEquals(s.getWinner(), "u1");
     }
 
 }

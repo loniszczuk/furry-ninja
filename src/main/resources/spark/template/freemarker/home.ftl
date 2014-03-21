@@ -9,7 +9,7 @@
 
         <div>
             <span>Sign up</span>
-            <label>nickname</label>: <input type="text" id="signup_nick" name="nickname" >
+            <label>username</label>: <input type="text" id="signup_username" name="username" >
             <label>email</label>: <input type="text" id="signup_email" name="email" >
             <label>password</label>: <input type="password" id="signup_pass" name="password" >
             <p id="signup_result"></p>
@@ -49,7 +49,7 @@
                     type: "POST",
                     dataType: "json",
                     contentType: "application/json; charset=UTF-8",
-                    data: JSON.stringify({ nickname: $("#signup_nick").val(), email:$("#signup_email").val(), password:$("#signup_pass").val() }),
+                    data: JSON.stringify({ username: $("#signup_username").val(), email:$("#signup_email").val(), password:$("#signup_pass").val() }),
                     success: function() {
                         $("#signup_result").html("OK");
                     },

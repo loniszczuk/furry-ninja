@@ -4,8 +4,10 @@ import ar.com.fn.api.JsonRoute;
 import ar.com.fn.domain.ai.Bot;
 import ar.com.fn.domain.kicker.SimpleKicker;
 import ar.com.fn.domain.match.Matches;
-import ar.com.fn.domain.match.SimpleMatch;
+import ar.com.fn.domain.match.SimpleMatchResolver;
 import ar.com.fn.domain.match.Team;
+import ar.com.fn.domain.matchmaking.User;
+import ar.com.fn.domain.matchmaking.Users;
 import ar.com.fn.domain.penalty.Position;
 import com.google.gson.Gson;
 import spark.Request;
@@ -44,9 +46,11 @@ public class MatchesRoutes {
                 Bot b = new Bot();
                 botTeam.addGoalie(b);
 
-                SimpleMatch m = new SimpleMatch(playerTeam, botTeam);
+                SimpleMatchResolver m = new SimpleMatchResolver(
+                        Users.instance().getByUsername(r.getUsername()), playerTeam,
+                        new User("Ro Bot"), botTeam);
 
-                return m.getCurrentState();
+                return m.getMatch();
             }
         });
     }
