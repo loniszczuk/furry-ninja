@@ -12,6 +12,8 @@ import ar.com.fn.security.Tokens;
 import ch.lambdaj.function.convert.Converter;
 import com.google.gson.Gson;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import spark.Request;
 import spark.Response;
 
@@ -22,6 +24,8 @@ import static spark.Spark.get;
 import static spark.Spark.post;
 
 public class UsersRoutes {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UsersRoutes.class);
 
 	private static Gson gson = new Gson();
 
@@ -55,6 +59,7 @@ public class UsersRoutes {
 		post(new JsonRoute("/users") {
 			@Override
 			public Object handle(Request request, Response response) {
+                LOGGER.info("Creating user from " + request.body());
 				RegistrationRequest r = gson.fromJson(request.body(), RegistrationRequest.class);
 
 				if (Users.instance().exists(r.getEmail())) {
@@ -82,6 +87,7 @@ public class UsersRoutes {
 				if (!u.getPassword().equals(DigestUtils.sha1Hex(r.getPassword()))) {
 					halt(401, "Invalid password or user -- " + r.getEmail());
 				}
+                Users.instance().setOnline(u);
 
 				return new LoginResponse(new Session(Tokens.instance().createToken(u.getId(), 1), Tokens.instance().createToken(
 						u.getId(), 2)), u.getId());
