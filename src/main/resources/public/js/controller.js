@@ -2,11 +2,10 @@
 
 /* Controllers */
 
-var phonecatApp = angular.module('furryNinjas', []);
+var furryNinjasApp = angular.module('furryNinjas', []);
 
-phonecatApp.controller('UsersListCtrl', function($scope) {
-  $scope.users = [
-    {'username': 'Leandro',
-     'email': 'as@asd.com'},
-  ];
+furryNinjasApp.controller('UsersListCtrl', function($scope, $http) {
+  $http.get('/users').success(function(data){
+    $scope.users = data;
+  });
 });
