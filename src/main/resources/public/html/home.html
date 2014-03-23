@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en" ng-app="furryNinjas">
+<head>
+    <meta charset="utf-8">
+    <title>Penalties</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+    <script src="/js/controller.js"></script>
+</head>
+<body ng-controller="UsersListCtrl">
+
+<p>Users: {{users.length}}</p>
+<ul>
+    <li ng-repeat="user in users">
+        {{user.username}} ({{user.email}})
+    </li>
+</ul>
+
+</body>
+</html>
