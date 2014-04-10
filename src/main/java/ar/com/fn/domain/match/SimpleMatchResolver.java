@@ -13,6 +13,8 @@ import java.util.List;
 
 public class SimpleMatchResolver extends MatchResolver {
 
+	private static final int TOTAL_PENALTIES = 5;
+
 	private static final long serialVersionUID = 356312685451209485L;
 
 	private Match match;
@@ -37,7 +39,7 @@ public class SimpleMatchResolver extends MatchResolver {
         List<PenaltyResult> penalties = new ArrayList<>();
 
         int goals = 0;
-        for (int i = 0; i < 5; ++i) {
+        for (int i = 0; i < TOTAL_PENALTIES; ++i) {
             Kicker kicker = kickers.next();
             Goalie goalie = goalies.next();
             Penalty p = new Penalty(kicker.kick(), goalie.dive());

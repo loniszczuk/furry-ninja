@@ -25,10 +25,10 @@
 		var goalieMoves = [];
 	
 	<#assign moveCount = 0>
-	<#list  getMatchLog().getMoves() as move>
+	<#list  getPenalties() as penalty>
 		<#assign moveCount = moveCount + 1>	
-		kickerMoves[${moveCount}]=MOVE_${move.getKickPosition()};
-		goalieMoves[${moveCount}]=MOVE_${move.getDivePosition()};
+		kickerMoves[${moveCount}]=MOVE_${penalty.getKickPosition()};
+		goalieMoves[${moveCount}]=MOVE_${penalty.getDivePosition()};
 	</#list>
 		Q.state.set("totalMoves", ${moveCount});
 		Q.state.set("kickerMoves", kickerMoves);
